@@ -2,12 +2,10 @@ var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-
 var User            = require('../app/models/user');
 var configAuth = require('./auth');
 
 module.exports = function(passport) {
-
 
 	passport.serializeUser(function(user, done){
 		done(null, user.id);
@@ -19,7 +17,6 @@ module.exports = function(passport) {
 		});
 	});
 
-
 	passport.use('local-signup', new LocalStrategy({
 		usernameField: 'email',
 		passwordField: 'password',
@@ -27,14 +24,15 @@ module.exports = function(passport) {
 	},
 	function(req, email, password, done){
 		process.nextTick(function(){
-			User.findOne({'local.username': email}, function(err, user){
+			User.findOne({'local.email': email}, function(err, user){
 				if(err)
 					return done(err);
 				if(user){
 					return done(null, false, req.flash('signupMessage', 'That email already taken'));
 				} else {
 					var newUser = new User();
-					newUser.local.username = email;
+					newUser.local.name = req.body.name;
+					newUser.local.email = email;
 					newUser.local.password = newUser.generateHash(password);
 
 					newUser.save(function(err){
@@ -44,7 +42,6 @@ module.exports = function(passport) {
 					})
 				}
 			})
-
 		});
 	}));
 
@@ -55,7 +52,7 @@ module.exports = function(passport) {
 		},
 		function(req, email, password, done){
 			process.nextTick(function(){
-				User.findOne({ 'local.username': email}, function(err, user){
+				User.findOne({ 'local.email': email}, function(err, user){
 					if(err)
 						return done(err);
 					if(!user)
@@ -64,12 +61,10 @@ module.exports = function(passport) {
 						return done(null, false, req.flash('loginMessage', 'invalid password'));
 					}
 					return done(null, user);
-
 				});
 			});
 		}
 	));
-
 
 	passport.use(new FacebookStrategy({
 	    clientID: configAuth.facebookAuth.clientID,
@@ -130,8 +125,5 @@ module.exports = function(passport) {
 	    		});
 	    	});
 	    }
-
 	));
-
-
 };
