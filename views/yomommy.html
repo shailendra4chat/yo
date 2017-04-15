@@ -1,0 +1,29 @@
+    <h3>Cook something new today!!!</h3>
+    <p>Search over a million recipes by ingredients.</p>
+
+    			
+        <div class="input-group">          
+          <input type="text" class="form-control" placeholder="Search recipes..." />
+          <span class="input-group-btn">
+            <input class="btn btn-default search" type="button" value="Go"  />
+          </span>
+        </div>
+    
+
+
+<script>
+      $(document).ready(function() {
+        $(".search").click(function(){
+          $.get('/api/recipes', function(data) {
+            console.log(data);
+          }).fail(function(err) {
+            console.log(err)
+          }).always(function() {
+            console.log("always");
+          });
+        })
+          
+
+      });
+</script>      
+

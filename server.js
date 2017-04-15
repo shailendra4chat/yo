@@ -27,7 +27,8 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 
-app.set("view engine", "ejs")
+app.set('view engine', 'html');
+app.engine('html', require('hbs').__express);
 app.use(express.static(__dirname + '/public'));
 
 var api = express.Router();

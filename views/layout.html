@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+	<title>Yo</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="./css/yo.css">
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<header>
+		<div class="row">
+			<div class="col-sm-4 logo">
+				<img src='images/yo.png' alt="Yo" title="Yo" width="80" />
+			</div>			
+		</div>
+		<!-- Navigation for logged in user -->
+		{{#if user }}
+		<div class="row padTHead">
+			<div class="col-sm-2">
+				<a href="/yomommy"><img src='images/yomommy.png' alt="Yo Mommy" title="Yo Mommy" width="80" /></a>
+			</div>
+			<div class="col-sm-2">
+				<a href="/yomusic"><img src='images/yomusic.png' alt="Yo Music" title="Yo Music" width="80" /></a>
+			</div>
+			<div class="col-sm-8 text-right text-primary">
+				<span class="fa fa-user"></span>
+				<span>{{ displayName }}</span>
+				<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+			</div>		
+		</div>
+		{{/if}}
+
+	<hr />
+	</header>
+	
+	<!-- CONTENT -->
+    {{> content }}
+	
+	<footer>
+		<hr />
+		&copy; Copyright Yo 2016
+	</footer>
+</div>
+</body>
+</html>

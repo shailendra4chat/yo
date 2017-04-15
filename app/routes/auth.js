@@ -1,11 +1,20 @@
+var hbs = require('hbs')
+var fs = require('fs')
+
 var User = require('../models/user');
+
 module.exports = function(router, passport){
 	router.get('/', function(req, res){
-		res.render('index.ejs');
+		hbs.registerPartial('content', fs.readFileSync(__dirname + '/../../views/social.html', 'utf8'))
+		res.render('layout', {	
+		})
 	});
 
 	router.get('/login', function(req, res){
-		res.render('login.ejs', { message: req.flash('loginMessage') });
+		hbs.registerPartial('content', fs.readFileSync(__dirname + '/../../views/login.html', 'utf8'))
+		res.render('layout', {
+			message: req.flash('loginMessage')	
+		})
 	});
 	router.post('/login', passport.authenticate('local-login', {
 		successRedirect: '/profile',
@@ -14,7 +23,10 @@ module.exports = function(router, passport){
 	}));
 
 	router.get('/signup', function(req, res){
-		res.render('signup.ejs', { message: req.flash('signupMessage') });
+		hbs.registerPartial('content', fs.readFileSync(__dirname + '/../../views/signup.html', 'utf8'))
+		res.render('layout', {
+			message: req.flash('signupMessage')	
+		})
 	});
 
 	router.post('/signup', passport.authenticate('local-signup', {

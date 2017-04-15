@@ -1,17 +1,12 @@
-<!doctype html>
-<html>
-<% include ./partials/head %>
-<body>
-<div class="container">
-	<% include ./partials/static-header %>
+
 	<div class=row>	
 		<div class="col-sm-6 col-sm-offset-3">
 			<h1><span class="fa fa-sign-in"></span> Login</h1>
 			
 			<!-- show any messages that come back with authentication -->
-			<% if (message.length > 0) { %>
-				<div class="alert alert-danger"><%= message %></div>
-			<% } %>
+			{{#if message }}
+				<div class="alert alert-danger">{{ message }}</div>
+			{{/if}}
 
 			<!-- LOGIN FORM -->
 			<form action="/login" method="post">				
@@ -30,7 +25,3 @@
 			<p>Or go <a href="/">home</a>.</p>
 		</div>
 	</div
-	<% include ./partials/footer %>
-</div>
-</body>
-</html>

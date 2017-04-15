@@ -1,6 +1,11 @@
+var hbs = require('hbs')
+var fs = require('fs')
+
 module.exports = function(router, passport){
-    router.get("/testapi", function(req, res){
-        res.json({secretData: "abc123"});
+    router.get("/recipes", function(req, res){
+      res.render('partials/recipes', {
+        recipes: "yo recipes"
+      })
     })
 
 }
